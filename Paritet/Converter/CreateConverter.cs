@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace Paritet
+namespace Paritet.Converter
 {
     class CreateConverter : IMultiValueConverter
     {

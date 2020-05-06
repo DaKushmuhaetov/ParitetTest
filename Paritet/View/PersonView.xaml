@@ -36,9 +36,9 @@
                                                     </MultiBinding>
                                                 </TextBlock.Text>
                                             </TextBlock>
-                                            <TextBlock Text="{Binding DateOfBirth, StringFormat=Дата рождения: {0}}"/>
-                                            <TextBlock Text="{Binding Height, StringFormat=Рост: {0}}"/>
-                                            <TextBlock Text="{Binding Weight, StringFormat=Вес: {0}}"/>
+                                            <TextBlock Text="{Binding DateOfBirth, Converter={StaticResource dateTimeConverter}, StringFormat=Дата рождения: {0}}"/>
+                                            <TextBlock Text="{Binding Height, StringFormat=Рост: {0} см.}"/>
+                                            <TextBlock Text="{Binding Weight, StringFormat=Вес: {0} кг.}"/>
                                         </StackPanel>
                                     </Border>
                                 </DataTemplate>

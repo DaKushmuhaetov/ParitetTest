@@ -68,7 +68,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreateConverter.cs" />
+    <Compile Include="Converter\DateTimeConverter.cs" />
+    <Compile Include="Converter\CreateConverter.cs" />
     <Compile Include="Migrations\202005061734386_initial.cs" />
     <Compile Include="Migrations\202005061734386_initial.designer.cs">
       <DependentUpon>202005061734386_initial.cs</DependentUpon>

@@ -1,7 +1,8 @@
 ﻿<Application x:Class="Paritet.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Paritet"
+             xmlns:local="clr-namespace:Paritet" 
+             xmlns:converters="clr-namespace:Paritet.Converter"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
@@ -11,7 +12,8 @@
                 <ResourceDictionary Source="Style/Inputs.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <local:CreateConverter x:Key="createConverter"/>
+            <converters:CreateConverter x:Key="createConverter"/>
+            <converters:DateTimeConverter x:Key="dateTimeConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
