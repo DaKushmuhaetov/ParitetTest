@@ -1,0 +1,111 @@
+﻿<Page x:Class="Paritet.View.PersonView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Paritet.View"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1200"
+      Background="White"
+      Title="Паритет">
+
+    <Grid>
+        <DockPanel Margin="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="70"/>
+                </Grid.RowDefinitions>
+                <Border BorderBrush="LightGray" BorderThickness="0 0 1 0">
+                    <StackPanel Grid.Column="0">
+                        <ListBox x:Name="PeopleCollection" ItemsSource="{Binding People}" SelectedItem="{Binding SelectedPerson}" Height="635" BorderThickness="0" Width="587" FontSize="14" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="1,0" IsSynchronizedWithCurrentItem="True" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="LightSkyBlue" BorderThickness="0, 0.5, 0, 0.5" CornerRadius="3" Width="578">
+                                        <StackPanel Margin="5">
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding StringFormat="{}{0}  {1}  {2}">
+                                                        <Binding Path="FirstName"/>
+                                                        <Binding Path="MiddleName"/>
+                                                        <Binding Path="LastName"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                            <TextBlock Text="{Binding DateOfBirth, StringFormat=Дата рождения: {0}}"/>
+                                            <TextBlock Text="{Binding Height, StringFormat=Рост: {0}}"/>
+                                            <TextBlock Text="{Binding Weight, StringFormat=Вес: {0}}"/>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </Border>
+                <StackPanel Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0 0 0 20" DataContext="{Binding Path=SelectedPerson}">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Фамилия" FontSize="16" FontWeight="Medium"/>
+                        <TextBlock Text=" *" Foreground="Red" FontSize="16"/>
+                    </StackPanel>
+                    <TextBox Template="{StaticResource StandartTextBox}" Name="FirstNameTB"  Text="{Binding Path=FirstName, UpdateSourceTrigger=Explicit}" Tag="Фамилия" Margin="5 0 5 20" Width="500"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Имя" FontSize="16" FontWeight="Medium"/>
+                        <TextBlock Text=" *" Foreground="Red" FontSize="16"/>
+                    </StackPanel>
+                    <TextBox Template="{StaticResource StandartTextBox}" Name="MiddleNameTB" Text="{Binding Path=MiddleName, UpdateSourceTrigger=Explicit}" Tag="Имя" Margin="5 0 5 20" Width="500"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Отчество" FontSize="16" FontWeight="Medium"/>
+                        <TextBlock Text=" *" Foreground="Red" FontSize="16"/>
+                    </StackPanel>
+                    <TextBox Template="{StaticResource StandartTextBox}" Name="LastNameTB" Text="{Binding Path=LastName, UpdateSourceTrigger=Explicit}" Tag="Отчество" Margin="5 0 5 20" Width="500"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Дата рождения" FontSize="16" FontWeight="Medium"/>
+                        <TextBlock Text=" *" Foreground="Red" FontSize="16"/>
+                    </StackPanel>
+                    <DatePicker Name="DateOfBirth" Background="Transparent" Width="200" HorizontalAlignment="Center" BorderBrush="AliceBlue" BorderThickness="1" Margin="5 10 5 20" SelectedDate="{Binding Path=DateOfBirth, UpdateSourceTrigger=Explicit}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Рост (см)" FontSize="16" FontWeight="Medium"/>
+                        <TextBlock Text=" *" Foreground="Red" FontSize="16"/>
+                    </StackPanel>
+                    <TextBox Template="{StaticResource StandartTextBox}" Name="HeightTB" Text="{Binding Path=Height, UpdateSourceTrigger=Explicit}" Tag="Рост" Margin="5 0 5 20" Width="500"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Вес (кг)" FontSize="16" FontWeight="Medium"/>
+                        <TextBlock Text=" *" Foreground="Red" FontSize="16"/>
+                    </StackPanel>
+                    <TextBox Template="{StaticResource StandartTextBox}" Name="WeightTB" Text="{Binding Path=Weight, UpdateSourceTrigger=Explicit}" Tag="Вес" Margin="5 0 5 20" Width="500" TextChanged="WeightTB_TextChanged"/>
+                </StackPanel>
+                <DockPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right">
+                    <Button Template="{StaticResource DangerousButton}" Content="Удалить" Command="{Binding Path=RemoveCommand}" CommandParameter="{Binding Path=SelectedPerson}"/>
+                    <Button Template="{StaticResource StandartButton}" Content="Сохранить" Command="{Binding Path=SaveCommand}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource createConverter}">
+                                <Binding ElementName="FirstNameTB" Path="Text"/>
+                                <Binding ElementName="MiddleNameTB" Path="Text"/>
+                                <Binding ElementName="LastNameTB" Path="Text"/>
+                                <Binding ElementName="DateOfBirth" Path="SelectedDate"/>
+                                <Binding ElementName="HeightTB" Path="Text"/>
+                                <Binding ElementName="WeightTB" Path="Text"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                    <Button Template="{StaticResource PrimaryButton}" Content="Создать" Command="{Binding Path=AddCommand}">
+                        <Button.CommandParameter>
+                            <MultiBinding Converter="{StaticResource createConverter}">
+                                <Binding ElementName="FirstNameTB" Path="Text"/>
+                                <Binding ElementName="MiddleNameTB" Path="Text"/>
+                                <Binding ElementName="LastNameTB" Path="Text"/>
+                                <Binding ElementName="DateOfBirth" Path="SelectedDate"/>
+                                <Binding ElementName="HeightTB" Path="Text"/>
+                                <Binding ElementName="WeightTB" Path="Text"/>
+                            </MultiBinding>
+                        </Button.CommandParameter>
+                    </Button>
+                </DockPanel>
+            </Grid>
+        </DockPanel>
+    </Grid>
+</Page>

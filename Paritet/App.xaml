@@ -1,0 +1,17 @@
+﻿<Application x:Class="Paritet.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:Paritet"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/Colors.xaml"/>
+                <ResourceDictionary Source="Style/Buttons.xaml"/>
+                <ResourceDictionary Source="Style/Inputs.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <local:CreateConverter x:Key="createConverter"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
